@@ -1,0 +1,10 @@
+forge-std/=lib/forge-std/src/
+@ensdomains/=node_modules/@ensdomains/
+@openzeppelin/=node_modules/@openzeppelin/
+
+
+forge-std/=lib/forge-std/src/
+@ensdomains/=node_modules/@ensdomains/
+@openzeppelin/=node_modules/@openzeppelin/
+
+

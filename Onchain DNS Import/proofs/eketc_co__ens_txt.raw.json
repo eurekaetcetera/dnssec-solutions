@@ -1,0 +1,420 @@
+{
+  "question": {
+    "qnameWire": "0x045f656e7305656b65746302636f00",
+    "qtype": 16,
+    "qclass": 1
+  },
+  "time": {
+    "validationTime": 1766454974,
+    "policy": "strict"
+  },
+  "rrsets": [
+    {
+      "name": "_ens.eketc.co",
+      "type": "TXT",
+      "class": "IN",
+      "ttl": 60,
+      "raw": "BF9lbnMFZWtldGMCY28AABAAAQAAADwALSxhPTB4NzAzYWUwM2ZCMTIwZUM5MWU5RWQ2ZDA4Q2U4MDQ0RTQ5OENDNzg5Qg==",
+      "section": "answer",
+      "rrIndex": 0,
+      "rdata": {
+        "txt": [
+          "a=0x703ae03fB120eC91e9Ed6d08Ce8044E498CC789B"
+        ]
+      }
+    },
+    {
+      "name": "_ens.eketc.co",
+      "type": "RRSIG",
+      "class": "IN",
+      "ttl": 60,
+      "raw": "BF9lbnMFZWtldGMCY28AAC4AAQAAADwAXAAQDQMAAAA8aUtWTmlIly6GyQVla2V0YwJjbwDFNaB21tRliI4qKytwNo34q+Q8xvuB12vj+4HgBt72FRFztzDCgsXHNz0b2iLBXejiQ9QgrF8JPw19t392A/eY",
+      "section": "answer",
+      "rrIndex": 1,
+      "rdata": {
+        "typeCovered": "TXT",
+        "algorithm": 13,
+        "labels": 3,
+        "originalTTL": 60,
+        "expiration": 1766544974,
+        "inception": 1766364974,
+        "keyTag": 34505,
+        "signerName": "eketc.co.",
+        "signature": "xTWgdtbUZYiOKisrcDaN+KvkPMb7gddr4/uB4Abe9hURc7cwwoLFxzc9G9oiwV3o4kPUIKxfCT8Nfbd/dgP3mA=="
+      }
+    },
+    {
+      "name": "eketc.co",
+      "type": "DNSKEY",
+      "class": "IN",
+      "ttl": 3600,
+      "raw": "BWVrZXRjAmNvAAAwAAEAAA4QAEQBAAMNoJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8KqXXFJkqmVfRvMGPmM1x8fGAa2XhSA==",
+      "section": "answer",
+      "rrIndex": 0,
+      "rdata": {
+        "flags": 256,
+        "protocol": 3,
+        "algorithm": 13,
+        "publicKey": "oJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8KqXXFJkqmVfRvMGPmM1x8fGAa2XhSA=="
+      }
+    },
+    {
+      "name": "eketc.co",
+      "type": "DNSKEY",
+      "class": "IN",
+      "ttl": 3600,
+      "raw": "BWVrZXRjAmNvAAAwAAEAAA4QAEQBAQMNmdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ==",
+      "section": "answer",
+      "rrIndex": 1,
+      "rdata": {
+        "flags": 257,
+        "protocol": 3,
+        "algorithm": 13,
+        "publicKey": "mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ=="
+      }
+    },
+    {
+      "name": "eketc.co",
+      "type": "RRSIG",
+      "class": "IN",
+      "ttl": 3600,
+      "raw": "BWVrZXRjAmNvAAAuAAEAAA4QAFwAMA0CAAAOEGmSZLVpQfk1CUMFZWtldGMCY28ANa2rtgTGBUJKQDczTz8YfLUduL/ZXbD24vLToR6wwazgAbUK6Ae3PXleSSiGYQAV+MY/+cahjarQhguKxGW9ww==",
+      "section": "answer",
+      "rrIndex": 2,
+      "rdata": {
+        "typeCovered": "DNSKEY",
+        "algorithm": 13,
+        "labels": 2,
+        "originalTTL": 3600,
+        "expiration": 1771201717,
+        "inception": 1765931317,
+        "keyTag": 2371,
+        "signerName": "eketc.co.",
+        "signature": "Na2rtgTGBUJKQDczTz8YfLUduL/ZXbD24vLToR6wwazgAbUK6Ae3PXleSSiGYQAV+MY/+cahjarQhguKxGW9ww=="
+      }
+    },
+    {
+      "name": "eketc.co",
+      "type": "DS",
+      "class": "IN",
+      "ttl": 3600,
+      "raw": "BWVrZXRjAmNvAAArAAEAAA4QACQJQw0C6i3g4m4FDfEQ2nuSkKlnnvL2VMXChw8hCnBZNBapdz0=",
+      "section": "answer",
+      "rrIndex": 0,
+      "rdata": {
+        "keyTag": 2371,
+        "algorithm": 13,
+        "digestType": 2,
+        "digest": "ea2de0e26e050df110da7b9290a9679ef2f654c5c2870f210a70593416a9773d"
+      }
+    },
+    {
+      "name": "eketc.co",
+      "type": "RRSIG",
+      "class": "IN",
+      "ttl": 3600,
+      "raw": "BWVrZXRjAmNvAAAuAAEAAA4QALYAKwgCAAAOEGlq2YlpQzdxQdcCY28AGZ6tAVbiFpQ4uPWguSdyl4P3x3L04vtcB9AZxH1FbPZhYBvjdeXCBsA7ul5KB0ThYaLWLn63iBjC24WenPZo2kyKb/02rEbscRhRk9MIwlP3QvpwYg0OxoxQfvOSFjwVxvxufSQYlGMqfjF1jKeeUADkZcbOpTbFfp5ECFSXkMiiGoGNmoQgon+9pZKWXg821c8n3fZo8gVsBXtdFpN2oA==",
+      "section": "answer",
+      "rrIndex": 1,
+      "rdata": {
+        "typeCovered": "DS",
+        "algorithm": 8,
+        "labels": 2,
+        "originalTTL": 3600,
+        "expiration": 1768610185,
+        "inception": 1766012785,
+        "keyTag": 16855,
+        "signerName": "co.",
+        "signature": "GZ6tAVbiFpQ4uPWguSdyl4P3x3L04vtcB9AZxH1FbPZhYBvjdeXCBsA7ul5KB0ThYaLWLn63iBjC24WenPZo2kyKb/02rEbscRhRk9MIwlP3QvpwYg0OxoxQfvOSFjwVxvxufSQYlGMqfjF1jKeeUADkZcbOpTbFfp5ECFSXkMiiGoGNmoQgon+9pZKWXg821c8n3fZo8gVsBXtdFpN2oA=="
+      }
+    },
+    {
+      "name": "co",
+      "type": "DNSKEY",
+      "class": "IN",
+      "ttl": 1047,
+      "raw": "AmNvAAAwAAEAAAQXAKgBAAMIAwEAAZUNwwlhsXkr6ze4Fg8wjl72xA/8cbM9XNUHAV6qExeHURpQH/DeWl1MaCabYYCGSet/6ZeVmzjCujrZ9cmgSrrn+gCdAFMQbFAYgNoBLKL4EpXZclfQarE6x7mfeEvRAJH0FJSpRgJlIrq7xS4d11Eg1xJ45XJ9+IgjqLg0D/d9ADxP/0piOBc5cVshYx5uQ2QX5TCoR+Y95hOaiRmntzc=",
+      "section": "answer",
+      "rrIndex": 0,
+      "rdata": {
+        "flags": 256,
+        "protocol": 3,
+        "algorithm": 8,
+        "publicKey": "AwEAAZUNwwlhsXkr6ze4Fg8wjl72xA/8cbM9XNUHAV6qExeHURpQH/DeWl1MaCabYYCGSet/6ZeVmzjCujrZ9cmgSrrn+gCdAFMQbFAYgNoBLKL4EpXZclfQarE6x7mfeEvRAJH0FJSpRgJlIrq7xS4d11Eg1xJ45XJ9+IgjqLg0D/d9ADxP/0piOBc5cVshYx5uQ2QX5TCoR+Y95hOaiRmntzc="
+      }
+    },
+    {
+      "name": "co",
+      "type": "DNSKEY",
+      "class": "IN",
+      "ttl": 1047,
+      "raw": "AmNvAAAwAAEAAAQXAQgBAQMIAwEAAczABmT0oI8qk/8hB86dKORi8mBv9mHPnIPYNCpDwK/lPjLyjYFR/rqSr3ide6TvE6Fz4Lt1E6Cr0cES98MQIPNXbb40I/2QuAhG/q6WpdXAH4WQd1qRiqaYfQQsCma94ckEmbSFjAsykAsJO9a/RhaK8Q3abPiZZEzyXE+KXS+ygztEFnP5BgVuaODvQwCDh1kIFV8Clb29czmsYDLjxc3N1UXj0pCHcP+JtFjhDAWbNMe7YH1GQsYIA0EO2Vq8gozIj7SUgGO64xAA9IrT7wVioUEwxLFialy4G23CxLUAfuOp6u86fZj6bxQnnwtZk9ayJkHu4UopRVJtHR5QbNM=",
+      "section": "answer",
+      "rrIndex": 1,
+      "rdata": {
+        "flags": 257,
+        "protocol": 3,
+        "algorithm": 8,
+        "publicKey": "AwEAAczABmT0oI8qk/8hB86dKORi8mBv9mHPnIPYNCpDwK/lPjLyjYFR/rqSr3ide6TvE6Fz4Lt1E6Cr0cES98MQIPNXbb40I/2QuAhG/q6WpdXAH4WQd1qRiqaYfQQsCma94ckEmbSFjAsykAsJO9a/RhaK8Q3abPiZZEzyXE+KXS+ygztEFnP5BgVuaODvQwCDh1kIFV8Clb29czmsYDLjxc3N1UXj0pCHcP+JtFjhDAWbNMe7YH1GQsYIA0EO2Vq8gozIj7SUgGO64xAA9IrT7wVioUEwxLFialy4G23CxLUAfuOp6u86fZj6bxQnnwtZk9ayJkHu4UopRVJtHR5QbNM="
+      }
+    },
+    {
+      "name": "co",
+      "type": "RRSIG",
+      "class": "IN",
+      "ttl": 1047,
+      "raw": "AmNvAAAuAAEAAAQXARYAMAgBAAAOEGlsovtpRQDjHmoCY28AjlV42rc5ThEayMsacBa2DP0EsiedsGpkitbSFep7AR0pW5QvEmCl0pRhT8W95PB3LUqomba7rgcqI7itWmGywkNyReMWxO/rsz3w4iNUVnJeLMQ6iIRf6w1n22QIiqx//tbGH4ZOtlvYN2lB+rfLSDxkN+nJhgb21IQdWJOf+bIrOKHhamc0Nr4oNUh+ik02aDcwV/jZl2nPgQoxQXWtFd+9gfiMgO2KyWubJQguAtWdret8eV4vhdaKqHjXMk0EsWrOfmQsGgeiuRI2+eRnfS0M08K223W52rlX/81TLHhz5R92+n5T2IyoEGCnXl8fbZKETGc5/k3NuCl/411FEQ==",
+      "section": "answer",
+      "rrIndex": 2,
+      "rdata": {
+        "typeCovered": "DNSKEY",
+        "algorithm": 8,
+        "labels": 1,
+        "originalTTL": 3600,
+        "expiration": 1768727291,
+        "inception": 1766129891,
+        "keyTag": 7786,
+        "signerName": "co.",
+        "signature": "jlV42rc5ThEayMsacBa2DP0EsiedsGpkitbSFep7AR0pW5QvEmCl0pRhT8W95PB3LUqomba7rgcqI7itWmGywkNyReMWxO/rsz3w4iNUVnJeLMQ6iIRf6w1n22QIiqx//tbGH4ZOtlvYN2lB+rfLSDxkN+nJhgb21IQdWJOf+bIrOKHhamc0Nr4oNUh+ik02aDcwV/jZl2nPgQoxQXWtFd+9gfiMgO2KyWubJQguAtWdret8eV4vhdaKqHjXMk0EsWrOfmQsGgeiuRI2+eRnfS0M08K223W52rlX/81TLHhz5R92+n5T2IyoEGCnXl8fbZKETGc5/k3NuCl/411FEQ=="
+      }
+    },
+    {
+      "name": "co",
+      "type": "DS",
+      "class": "IN",
+      "ttl": 77508,
+      "raw": "AmNvAAArAAEAAS7EACQeaggC64T4ZMvobpE3ltLI3YGTOqLJS7z7c0GaQiULxGULCBs=",
+      "section": "answer",
+      "rrIndex": 0,
+      "rdata": {
+        "keyTag": 7786,
+        "algorithm": 8,
+        "digestType": 2,
+        "digest": "eb84f864cbe86e913796d2c8dd81933aa2c94bbcfb73419a42250bc4650b081b"
+      }
+    },
+    {
+      "name": "co",
+      "type": "DS",
+      "class": "IN",
+      "ttl": 77508,
+      "raw": "AmNvAAArAAEAAS7EACTynggCSFfuGoXmYckhVq0JtAE52ufVvjfRF6EiMonw4gz51lQ=",
+      "section": "answer",
+      "rrIndex": 1,
+      "rdata": {
+        "keyTag": 62110,
+        "algorithm": 8,
+        "digestType": 2,
+        "digest": "4857ee1a85e661c92156ad09b40139dae7d5be37d117a1223289f0e20cf9d654"
+      }
+    }
+  ],
+  "extra": {
+    "dsChain": [
+      {
+        "name": "eketc.co",
+        "type": "DS",
+        "class": "IN",
+        "ttl": 3600,
+        "rdata": {
+          "keyTag": 2371,
+          "algorithm": 13,
+          "digestType": 2,
+          "digest": "ea2de0e26e050df110da7b9290a9679ef2f654c5c2870f210a70593416a9773d"
+        },
+        "raw": "BWVrZXRjAmNvAAArAAEAAA4QACQJQw0C6i3g4m4FDfEQ2nuSkKlnnvL2VMXChw8hCnBZNBapdz0=",
+        "section": "answer",
+        "rrIndex": 0
+      },
+      {
+        "name": "co",
+        "type": "DS",
+        "class": "IN",
+        "ttl": 77508,
+        "rdata": {
+          "keyTag": 7786,
+          "algorithm": 8,
+          "digestType": 2,
+          "digest": "eb84f864cbe86e913796d2c8dd81933aa2c94bbcfb73419a42250bc4650b081b"
+        },
+        "raw": "AmNvAAArAAEAAS7EACQeaggC64T4ZMvobpE3ltLI3YGTOqLJS7z7c0GaQiULxGULCBs=",
+        "section": "answer",
+        "rrIndex": 0
+      },
+      {
+        "name": "co",
+        "type": "DS",
+        "class": "IN",
+        "ttl": 77508,
+        "rdata": {
+          "keyTag": 62110,
+          "algorithm": 8,
+          "digestType": 2,
+          "digest": "4857ee1a85e661c92156ad09b40139dae7d5be37d117a1223289f0e20cf9d654"
+        },
+        "raw": "AmNvAAArAAEAAS7EACTynggCSFfuGoXmYckhVq0JtAE52ufVvjfRF6EiMonw4gz51lQ=",
+        "section": "answer",
+        "rrIndex": 1
+      }
+    ],
+    "parentDnskeys": [],
+    "trustAnchor": {
+      "zone": ".",
+      "ds": {
+        "keyTag": 7786,
+        "algorithm": 8,
+        "digestType": 2,
+        "digest": "eb84f864cbe86e913796d2c8dd81933aa2c94bbcfb73419a42250bc4650b081b"
+      },
+      "source": "IANA Root DS for .co TLD",
+      "computedBy": "fetch_dnssec_proof.mjs v1.2 (ABI-ready Profile A)"
+    },
+    "dnskeySet": {
+      "zone": "eketc.co.",
+      "keys": [
+        {
+          "flags": 256,
+          "protocol": 3,
+          "algorithm": 13,
+          "publicKey": "oJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8KqXXFJkqmVfRvMGPmM1x8fGAa2XhSA==",
+          "publicKeyHex": "0xa09311112cf9138818cd2feae970ebbd4d6a30f6088c25b325a39abbc5cd1197aa098283e5aaf421177c2aa5d714992a9957d1bcc18f98cd71f1f1806b65e148",
+          "publicKeyLength": 64,
+          "keyTag": 34505,
+          "isKSK": false,
+          "isZSK": true
+        },
+        {
+          "flags": 257,
+          "protocol": 3,
+          "algorithm": 13,
+          "publicKey": "mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ==",
+          "publicKeyHex": "0x99db2cc14cabdc33d6d77da63a2f15f71112584f234e8d1dc428e39e8a4a97e1aa271a555dc90701e17e2a4c4b6f120b7c32d44f4ac02bd894cf2d4be7778a19",
+          "publicKeyLength": 64,
+          "keyTag": 2371,
+          "isKSK": true,
+          "isZSK": false
+        }
+      ],
+      "rrsigDnskey": {
+        "typeCovered": "DNSKEY",
+        "algorithm": 13,
+        "labels": 2,
+        "originalTTL": 3600,
+        "expiration": 1771201717,
+        "inception": 1765931317,
+        "keyTag": 2371,
+        "signerName": "eketc.co.",
+        "signature": "Na2rtgTGBUJKQDczTz8YfLUduL/ZXbD24vLToR6wwazgAbUK6Ae3PXleSSiGYQAV+MY/+cahjarQhguKxGW9ww=="
+      }
+    },
+    "verificationPlan": {
+      "trustModel": "ProfileB_FullIANAChain",
+      "rootTrustAnchor": "Root DS for .co",
+      "rootDSKeyTag": 7786,
+      "chain": [
+        "Root DS (keyTag=7786) → validates .co DNSKEY",
+        ".co ZSK → signs eketc.co DS",
+        "eketc.co DS → validates eketc.co DNSKEY (Algorithm 13)",
+        "eketc.co ZSK (keyTag=34505) → signs TXT (Algorithm 13 + EIP-7951)"
+      ],
+      "notes": [
+        "Full IANA root chain validation",
+        "Matches ENS DNSSECImpl trust model",
+        "Algorithm 8 (RSA) for root → .co",
+        "Algorithm 13 (P-256 + EIP-7951) for eketc.co → TXT",
+        "Two P-256 verifications use precompile = 94% gas savings"
+      ]
+    }
+  },
+  "abi": {
+    "question": {
+      "qnameWire": "0x045f656e7305656b65746302636f00",
+      "qtype": 16,
+      "qclass": 1
+    },
+    "time": {
+      "validationTime": 1766454974,
+      "policy": "strict"
+    },
+    "dnskeyProof": {
+      "nameWire": "0x05656b65746302636f00",
+      "rdata": [
+        "BWVrZXRjAmNvAAAwAAEAAA4QAEQBAAMNoJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8KqXXFJkqmVfRvMGPmM1x8fGAa2XhSA==",
+        "BWVrZXRjAmNvAAAwAAEAAA4QAEQBAQMNmdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ=="
+      ],
+      "rrsig": {
+        "algorithm": 13,
+        "labels": 2,
+        "originalTTL": 3600,
+        "expiration": 1771201717,
+        "inception": 1765931317,
+        "keyTag": 2371,
+        "signerNameWire": "0x05656b65746302636f00",
+        "signature": "0x35adabb604c605424a4037334f3f187cb51db8bfd95db0f6e2f2d3a11eb0c1ace001b50ae807b73d795e492886610015f8c63ff9c6a18daad0860b8ac465bdc3"
+      },
+      "canonicalRRsetBytes": "0x05656b65746302636f000030000100000e1000440100030da09311112cf9138818cd2feae970ebbd4d6a30f6088c25b325a39abbc5cd1197aa098283e5aaf421177c2aa5d714992a9957d1bcc18f98cd71f1f1806b65e14805656b65746302636f000030000100000e1000440101030d99db2cc14cabdc33d6d77da63a2f15f71112584f234e8d1dc428e39e8a4a97e1aa271a555dc90701e17e2a4c4b6f120b7c32d44f4ac02bd894cf2d4be7778a19",
+      "signedDataBytes": "0x00300d0200000e10699264b56941f935094305656b65746302636f0005656b65746302636f000030000100000e1000440100030da09311112cf9138818cd2feae970ebbd4d6a30f6088c25b325a39abbc5cd1197aa098283e5aaf421177c2aa5d714992a9957d1bcc18f98cd71f1f1806b65e14805656b65746302636f000030000100000e1000440101030d99db2cc14cabdc33d6d77da63a2f15f71112584f234e8d1dc428e39e8a4a97e1aa271a555dc90701e17e2a4c4b6f120b7c32d44f4ac02bd894cf2d4be7778a19"
+    },
+    "answerProof": {
+      "nameWire": "0x045f656e7305656b65746302636f00",
+      "rdata": [
+        "BF9lbnMFZWtldGMCY28AABAAAQAAADwALSxhPTB4NzAzYWUwM2ZCMTIwZUM5MWU5RWQ2ZDA4Q2U4MDQ0RTQ5OENDNzg5Qg=="
+      ],
+      "rrsig": {
+        "algorithm": 13,
+        "labels": 3,
+        "originalTTL": 60,
+        "expiration": 1766544974,
+        "inception": 1766364974,
+        "keyTag": 34505,
+        "signerNameWire": "0x05656b65746302636f00",
+        "signature": "0xc535a076d6d465888e2a2b2b70368df8abe43cc6fb81d76be3fb81e006def6151173b730c282c5c7373d1bda22c15de8e243d420ac5f093f0d7db77f7603f798"
+      },
+      "canonicalRRsetBytes": "0x045f656e7305656b65746302636f00001000010000003c002d2c613d307837303361653033664231323065433931653945643664303843653830343445343938434337383942",
+      "signedDataBytes": "0x00100d030000003c694b564e6948972e86c905656b65746302636f00045f656e7305656b65746302636f00001000010000003c002d2c613d307837303361653033664231323065433931653945643664303843653830343445343938434337383942"
+    }
+  },
+  "meta": {
+    "generatedAt": "2025-12-23T01:56:14.873Z",
+    "dnsServer": "1.1.1.1:53",
+    "qname": "_ens.eketc.co",
+    "qtype": 16
+  },
+  "messages": [
+    {
+      "query": {
+        "name": "_ens.eketc.co",
+        "type": "TXT"
+      },
+      "responseRaw": "4DaBoAABAAIAAAABBF9lbnMFZWtldGMCY28AABAAAcAMABAAAQAAADwALSxhPTB4NzAzYWUwM2ZCMTIwZUM5MWU5RWQ2ZDA4Q2U4MDQ0RTQ5OENDNzg5QsAMAC4AAQAAADwAXAAQDQMAAAA8aUtWTmlIly6GyQVla2V0YwJjbwDFNaB21tRliI4qKytwNo34q+Q8xvuB12vj+4HgBt72FRFztzDCgsXHNz0b2iLBXejiQ9QgrF8JPw19t392A/eYAAApBNAAAIAAAAA="
+    },
+    {
+      "query": {
+        "name": "eketc.co",
+        "type": "DNSKEY"
+      },
+      "responseRaw": "2XiBoAABAAMAAAABBWVrZXRjAmNvAAAwAAHADAAwAAEAAA4QAEQBAAMNoJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8KqXXFJkqmVfRvMGPmM1x8fGAa2XhSMAMADAAAQAADhAARAEBAw2Z2yzBTKvcM9bXfaY6LxX3ERJYTyNOjR3EKOOeikqX4aonGlVdyQcB4X4qTEtvEgt8MtRPSsAr2JTPLUvnd4oZwAwALgABAAAOEABcADANAgAADhBpkmS1aUH5NQlDBWVrZXRjAmNvADWtq7YExgVCSkA3M08/GHy1Hbi/2V2w9uLy06EesMGs4AG1CugHtz15XkkohmEAFfjGP/nGoY2q0IYLisRlvcMAACkE0AAAgAAAAA=="
+    },
+    {
+      "query": {
+        "name": "eketc.co",
+        "type": "DS"
+      },
+      "responseRaw": "dB+BoAABAAIAAAABBWVrZXRjAmNvAAArAAHADAArAAEAAA4QACQJQw0C6i3g4m4FDfEQ2nuSkKlnnvL2VMXChw8hCnBZNBapdz3ADAAuAAEAAA4QALYAKwgCAAAOEGlq2YlpQzdxQdcCY28AGZ6tAVbiFpQ4uPWguSdyl4P3x3L04vtcB9AZxH1FbPZhYBvjdeXCBsA7ul5KB0ThYaLWLn63iBjC24WenPZo2kyKb/02rEbscRhRk9MIwlP3QvpwYg0OxoxQfvOSFjwVxvxufSQYlGMqfjF1jKeeUADkZcbOpTbFfp5ECFSXkMiiGoGNmoQgon+9pZKWXg821c8n3fZo8gVsBXtdFpN2oAAAKQTQAACAAAAA"
+    },
+    {
+      "query": {
+        "name": "co",
+        "type": "DNSKEY"
+      },
+      "responseRaw": "Oi+BoAABAAMAAAABAmNvAAAwAAHADAAwAAEAAAQXAKgBAAMIAwEAAZUNwwlhsXkr6ze4Fg8wjl72xA/8cbM9XNUHAV6qExeHURpQH/DeWl1MaCabYYCGSet/6ZeVmzjCujrZ9cmgSrrn+gCdAFMQbFAYgNoBLKL4EpXZclfQarE6x7mfeEvRAJH0FJSpRgJlIrq7xS4d11Eg1xJ45XJ9+IgjqLg0D/d9ADxP/0piOBc5cVshYx5uQ2QX5TCoR+Y95hOaiRmntzfADAAwAAEAAAQXAQgBAQMIAwEAAczABmT0oI8qk/8hB86dKORi8mBv9mHPnIPYNCpDwK/lPjLyjYFR/rqSr3ide6TvE6Fz4Lt1E6Cr0cES98MQIPNXbb40I/2QuAhG/q6WpdXAH4WQd1qRiqaYfQQsCma94ckEmbSFjAsykAsJO9a/RhaK8Q3abPiZZEzyXE+KXS+ygztEFnP5BgVuaODvQwCDh1kIFV8Clb29czmsYDLjxc3N1UXj0pCHcP+JtFjhDAWbNMe7YH1GQsYIA0EO2Vq8gozIj7SUgGO64xAA9IrT7wVioUEwxLFialy4G23CxLUAfuOp6u86fZj6bxQnnwtZk9ayJkHu4UopRVJtHR5QbNPADAAuAAEAAAQXARYAMAgBAAAOEGlsovtpRQDjHmoCY28AjlV42rc5ThEayMsacBa2DP0EsiedsGpkitbSFep7AR0pW5QvEmCl0pRhT8W95PB3LUqomba7rgcqI7itWmGywkNyReMWxO/rsz3w4iNUVnJeLMQ6iIRf6w1n22QIiqx//tbGH4ZOtlvYN2lB+rfLSDxkN+nJhgb21IQdWJOf+bIrOKHhamc0Nr4oNUh+ik02aDcwV/jZl2nPgQoxQXWtFd+9gfiMgO2KyWubJQguAtWdret8eV4vhdaKqHjXMk0EsWrOfmQsGgeiuRI2+eRnfS0M08K223W52rlX/81TLHhz5R92+n5T2IyoEGCnXl8fbZKETGc5/k3NuCl/411FEQAAKQTQAACAAAAA"
+    },
+    {
+      "query": {
+        "name": "co",
+        "type": "DS"
+      },
+      "responseRaw": "qp+BoAABAAMAAAABAmNvAAArAAHADAArAAEAAS7EACQeaggC64T4ZMvobpE3ltLI3YGTOqLJS7z7c0GaQiULxGULCBvADAArAAEAAS7EACTynggCSFfuGoXmYckhVq0JtAE52ufVvjfRF6EiMonw4gz51lTADAAuAAEAAS7EARMAKwgBAAFRgGla1NBpSaNA8XEAvJBi6I5GLB1UimUiyZ9SzD1xZqQpxYSook/f8TXbFeTIvTLrwmSVvw45D9ERO5gqVJ+a1bzrSDt0DXllVluffByxkaaY2ipeX3fpP6NZ6H0SjxU4HVQFz9DqkjBbjwuzxNLiWPZXGTFUylRQQB1b8+Fu+3H47jE4GoqBicqoH9pRMwyAVo1fZ8CjK23+J6u+/vlNBMPF3NP/gPr2m5x6FPz+KNLQdKDKi7/lysXjhAK+nxUBWcIH9MC2wcTt/g+X6/oVNNUhQe+oCUPTSl2JMWEcXu+tKUkSBq3I+63psR/bXgBudBUkiykUtH/34Hlt15EitYaGa7mC6Wq6xYQXAAAAKQTQAACAAAAA"
+    }
+  ]
+}

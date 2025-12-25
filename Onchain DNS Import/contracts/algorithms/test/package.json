@@ -1,0 +1,13 @@
+{
+  "name": "p256-precompile-test",
+  "version": "1.0.0",
+  "description": "Test script to verify EIP-7951 P-256 precompile availability",
+  "type": "module",
+  "main": "test-p256-precompile.js",
+  "scripts": {
+    "test": "node test-p256-precompile.js"
+  },
+  "dependencies": {
+    "ethers": "^6.16.0"
+  }
+}

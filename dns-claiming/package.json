@@ -1,0 +1,11 @@
+{
+  "name": "dns-claiming",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "DNS claiming contracts for ENS",
+  "dependencies": {
+    "@ensdomains/buffer": "^0.1.2",
+    "@openzeppelin/contracts": "^5.0.0"
+  }
+}
+
