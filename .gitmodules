@@ -1,0 +1,3 @@
+[submodule "ens-p256-test/lib/forge-std"]
+	path = ens-p256-test/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
