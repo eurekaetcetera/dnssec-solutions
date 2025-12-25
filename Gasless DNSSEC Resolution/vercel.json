@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/server.mjs",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/health",
+      "dest": "/api/server.mjs"
+    },
+    {
+      "src": "/resolve",
+      "dest": "/api/server.mjs"
+    },
+    {
+      "src": "/ccip-read",
+      "dest": "/api/server.mjs"
+    }
+  ]
+}

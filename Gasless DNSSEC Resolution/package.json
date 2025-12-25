@@ -1,0 +1,16 @@
+{
+  "name": "onchain-dnssec",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "DNSSEC P-256 proof fetcher and verifier",
+  "scripts": {
+    "fetch": "node scripts/fetch_dnssec_proof.mjs"
+  },
+  "dependencies": {
+    "dns-packet": "^5.6.1",
+    "dotenv": "^17.2.3",
+    "ethers": "^6.16.0",
+    "node-fetch": "^3.3.2",
+    "viem": "^2.43.2"
+  }
+}

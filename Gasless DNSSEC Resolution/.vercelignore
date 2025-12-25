@@ -1,0 +1,16 @@
+node_modules
+.env
+.env.local
+*.log
+.DS_Store
+test/
+broadcast/
+cache/
+out/
+lib/forge-std
+*.t.sol
+foundry.toml
+remappings.txt
+.git
+.gitignore
+
