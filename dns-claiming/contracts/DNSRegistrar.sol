@@ -4,9 +4,9 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "@ensdomains/buffer/contracts/Buffer.sol";
 // Note: These imports reference the Onchain DNS Import project contracts
-import "@onchain-dns-import/contracts/DNSSEC.sol";
-import "@onchain-dns-import/contracts/libraries/RRUtils.sol";
-import "@onchain-dns-import/contracts/utils/BytesUtils.sol";
+import "../../Onchain DNS Import/contracts/DNSSEC.sol";
+import "../../Onchain DNS Import/contracts/libraries/RRUtils.sol";
+import "../../Onchain DNS Import/contracts/utils/BytesUtils.sol";
 import "./DNSClaimChecker.sol";
 import "./interfaces/IDNSRegistrar.sol";
 import "./interfaces/IENS.sol";

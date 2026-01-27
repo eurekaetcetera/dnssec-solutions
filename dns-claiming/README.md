@@ -4,14 +4,14 @@ This directory contains contracts and scripts for claiming DNS names on ENS usin
 
 ## Overview
 
-These contracts are separated from Onchain DNS Import because they require ENS registry permissions that may not be available for all TLDs (e.g., you cannot claim `.co` domains on ENS).
+These contracts are separated from Profile B because they require ENS registry permissions that may not be available for all TLDs (e.g., you cannot claim `.co` domains on ENS).
 
 ## Contracts
 
 ### Core Contracts
 
 - **`DNSRegistrar.sol`** - ENS registrar for claiming DNS names using DNSSEC proofs
-  - Uses DNSSECOracle from Onchain DNS Import for proof verification
+  - Uses DNSSECOracle from Profile B for proof verification
   - Extracts owner address from `_ens.<domain>` TXT records
   - Claims names on ENS registry
 
@@ -29,7 +29,7 @@ These contracts are separated from Onchain DNS Import because they require ENS r
 
 ## Dependencies
 
-These contracts depend on Onchain DNS Import's contracts:
+These contracts depend on Profile B's contracts:
 - `DNSSEC.sol` - DNSSEC structs and types
 - `RRUtils.sol` - DNS wire format parsing
 - `BytesUtils.sol` - Byte manipulation utilities
@@ -39,7 +39,7 @@ These contracts depend on Onchain DNS Import's contracts:
 
 ### Prerequisites
 
-1. Deploy DNSSECOracle (from Onchain DNS Import)
+1. Deploy DNSSECOracle (from Profile B)
 2. Set trust anchors on the oracle
 3. Deploy DNSRegistrar pointing to the oracle
 4. Ensure `_ens.<domain>` TXT record exists with format: `a=0x<your-address>`
@@ -67,11 +67,11 @@ The script will:
 - ✅ `.eth` - Can be claimed (via ENS's registrar)
 - ❌ `.co`, `.com`, etc. - Cannot be claimed (no registrar permissions)
 
-This is why these contracts are separated from Onchain DNS Import - they demonstrate functionality but may not be usable for all domains.
+This is why these contracts are separated from Profile B - they demonstrate functionality but may not be usable for all domains.
 
-## Integration with Onchain DNS Import
+## Integration with Profile B
 
-The DNSRegistrar uses Onchain DNS Import's optimized DNSSECOracle, which provides:
+The DNSRegistrar uses Profile B's optimized DNSSECOracle, which provides:
 - ~94% gas savings for Algorithm 13 (P-256) domains
 - Full DS chain validation from IANA root
 - Support for both Algorithm 8 (RSA) and Algorithm 13 (P-256)
@@ -79,11 +79,11 @@ The DNSRegistrar uses Onchain DNS Import's optimized DNSSECOracle, which provide
 ## Contract Deployment
 
 To deploy DNSRegistrar, you'll need:
-- DNSSECOracle address (from Onchain DNS Import)
+- DNSSECOracle address (from Profile B)
 - ENS Registry address
 - Default resolver address
 
-Example deployment (see Onchain DNS Import's `Deploy.s.sol` for reference):
+Example deployment (see Profile B's `Deploy.s.sol` for reference):
 ```solidity
 DNSRegistrar registrar = new DNSRegistrar(
     DNSSEC(oracleAddress),

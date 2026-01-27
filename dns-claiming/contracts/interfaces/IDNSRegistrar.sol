@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-// Note: This import references the Onchain DNS Import project contracts
-import "@onchain-dns-import/contracts/DNSSEC.sol";
+// Note: This import assumes Profile B contracts are in a sibling directory
+import "../onchain-dnssec — Profile B (onchain import)/contracts/DNSSEC.sol";
 
 /**
  * @title IDNSRegistrar

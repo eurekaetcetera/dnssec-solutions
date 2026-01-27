@@ -2,9 +2,9 @@
 pragma solidity ^0.8.4;
 
 // Note: These imports reference the Onchain DNS Import project contracts
-import "@onchain-dns-import/contracts/DNSSEC.sol";
-import "@onchain-dns-import/contracts/libraries/RRUtils.sol";
-import "@onchain-dns-import/contracts/utils/BytesUtils.sol";
+import "../../Onchain DNS Import/contracts/DNSSEC.sol";
+import "../../Onchain DNS Import/contracts/libraries/RRUtils.sol";
+import "../../Onchain DNS Import/contracts/utils/BytesUtils.sol";
 import "./utils/HexUtils.sol";
 import "@ensdomains/buffer/contracts/Buffer.sol";
 

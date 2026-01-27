@@ -1,0 +1,10 @@
+[profile.default]
+src = "contracts"
+out = "out"
+libs = ["lib"]
+solc = "0.8.25"
+evm_version = "shanghai"
+
+remappings = [
+    "@ensdomains/buffer/=lib/buffer/",
+]

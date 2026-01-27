@@ -2,11 +2,9 @@
 
 This repository contains three complementary projects that demonstrate different approaches to DNSSEC verification on Ethereum, all leveraging the **EIP-7951 P-256 precompile** for efficient Algorithm 13 (ECDSAP256SHA256) signature verification.
 
-> 📖 **For comprehensive technical documentation**, see the [DNSSEC Onchain Resolution Specification](https://www.eketc.co/docs/specifications/dnssec-specification). The specification provides detailed information about trust models, proof systems, verification paths, contract architectures, gas benchmarks, and implementation patterns for both Profile A and Profile B approaches.
-
 ## Overview
 
-The [EIP-7951 P-256 precompile](https://eips.ethereum.org/EIPS/eip-7951) (activated December 3, 2025 in the Fusaka upgrade) enables native secp256r1 signature verification on Ethereum at approximately **~3,450 gas** per verification. This provides massive gas savings (up to **~94%**) compared to implementing P-256 verification in Solidity.
+The [EIP-7951 P-256 precompile](https://eips.ethereum.org/EIP-7951) (activated December 3, 2025 in the Fusaka upgrade) enables native secp256r1 signature verification on Ethereum at approximately **~3,450 gas** per verification. This provides massive gas savings (up to **~94%**) compared to implementing P-256 verification in Solidity.
 
 These projects demonstrate three distinct use cases:
 
@@ -156,7 +154,7 @@ foundryup
 
 All projects use the same precompile interface. See detailed documentation:
 - **[Precompile Instructions](./Gasless%20DNSSEC%20Resolution/contracts/algorithms/P256_PRECOMPILE_INSTRUCTIONS.md)**
-- **EIP-7951**: https://eips.ethereum.org/EIPS/eip-7951
+- **EIP-7951**: https://eips.ethereum.org/EIP-7951
 
 **Precompile Details:**
 - **Address**: `0x0000000000000000000000000000000000000100`
@@ -228,14 +226,10 @@ Each project may have its own license. Check individual project directories for 
 - **ENS (Ethereum Name Service)**: Inspiration for DNSSEC oracle design patterns
 - **ICANN**: Maintains the IANA root zone trust anchors
 
-## Documentation
-
-- **[DNSSEC Onchain Resolution Specification](https://www.eketc.co/docs/specifications/dnssec-specification)** - Comprehensive technical reference covering trust models, proof systems, verification paths, contract architectures, gas benchmarks, and implementation patterns for Profile A (pinned KSK) and Profile B (IANA root DS chain) approaches.
-
 ## Related Resources
 
-- **EIP-7951 Specification**: https://eips.ethereum.org/EIPS/eip-7951
-- **EIP-3668 (CCIP-Read)**: https://eips.ethereum.org/EIPS/eip-3668
+- **EIP-7951 Specification**: https://eips.ethereum.org/EIP-7951
+- **EIP-3668 (CCIP-Read)**: https://eips.ethereum.org/EIP-3668
 - **DNSSEC RFC 4033-4035**: DNS Security Extensions specifications
 - **ENS Documentation**: https://docs.ens.domains/
 

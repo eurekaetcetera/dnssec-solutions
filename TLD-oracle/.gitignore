@@ -1,0 +1,31 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Compiler output
+cache/
+out/
+
+# Foundry broadcast logs
+broadcast/
+
+# Dependencies (lib/buffer is a git submodule, tracked via .gitmodules)
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# Claude
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docs (if generated)
+docs/
+
+# Foundry lock (optional - some prefer to commit this)
+# foundry.lock
