@@ -57,6 +57,8 @@ contract TLDMinter is ITLDMinter {
     bool public paused;
     bool private _securityCouncilVetoRevoked;
 
+    mapping(bytes32 => bool) public allowedTLDs;
+
     // ─────────────────────────────────────────────────────────────────
     // Custom Errors
     // ─────────────────────────────────────────────────────────────────
@@ -76,6 +78,7 @@ contract TLDMinter is ITLDMinter {
     error SecurityCouncilNotExpired();
     error SecurityCouncilAlreadyRevoked();
     error InvalidNameFormat();
+    error TLDNotAllowed(bytes32 labelHash);
 
     // ─────────────────────────────────────────────────────────────────
     // Modifiers
@@ -140,20 +143,21 @@ contract TLDMinter is ITLDMinter {
         bytes calldata name,
         IDNSSEC.RRSetWithSignature[] calldata proof
     ) external whenNotPaused {
-        // Step 1: Verify DNSSEC proof via existing oracle
+        // Step 1: Extract label hash and check allowlist (cheap, fail fast)
+        bytes32 labelHash = _extractLabelHash(name);
+        if (!allowedTLDs[labelHash]) revert TLDNotAllowed(labelHash);
+
+        // Step 2: Verify DNSSEC proof via existing oracle
         (bytes memory data, uint32 inception) = oracle.verifyRRSet(proof);
 
-        // Step 2: Check proof freshness
+        // Step 3: Check proof freshness
         if (block.timestamp - inception > proofMaxAge) {
             revert ProofTooOld(inception, proofMaxAge);
         }
 
-        // Step 3: Parse owner from TXT record
+        // Step 4: Parse owner from TXT record
         (address owner, bool found) = _parseOwnerFromTXT(name, data);
         if (!found) revert NoOwnerRecordFound(name);
-
-        // Step 4: Extract label hash from DNS wire format name
-        bytes32 labelHash = _extractLabelHash(name);
 
         // Step 5: Policy checks
         if (!canClaim(labelHash)) {
@@ -269,8 +273,31 @@ contract TLDMinter is ITLDMinter {
     }
 
     /// @inheritdoc ITLDMinter
+    function addToAllowlist(string calldata tld) external onlyDAO {
+        bytes32 tldHash = keccak256(abi.encodePacked(tld));
+        allowedTLDs[tldHash] = true;
+        emit TLDAllowlisted(tld);
+    }
+
+    /// @inheritdoc ITLDMinter
+    function removeFromAllowlist(string calldata tld) external onlyDAO {
+        bytes32 tldHash = keccak256(abi.encodePacked(tld));
+        allowedTLDs[tldHash] = false;
+        emit TLDRemovedFromAllowlist(tld);
+    }
+
+    /// @inheritdoc ITLDMinter
+    function batchAddToAllowlist(string[] calldata tlds) external onlyDAO {
+        for (uint256 i = 0; i < tlds.length; i++) {
+            bytes32 tldHash = keccak256(abi.encodePacked(tlds[i]));
+            allowedTLDs[tldHash] = true;
+            emit TLDAllowlisted(tlds[i]);
+        }
+    }
+
+    /// @inheritdoc ITLDMinter
     function version() external pure returns (string memory) {
-        return "1.0.0";
+        return "2.0.0";
     }
 
     // ─────────────────────────────────────────────────────────────────

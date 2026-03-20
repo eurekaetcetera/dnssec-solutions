@@ -1,0 +1,15 @@
+{
+  "name": "tld-oracle",
+  "private": true,
+  "scripts": {
+    "deploy:v2": "ts-node scripts/deploy-v2.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "ethers": "^6.13.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.0",
+    "typescript": "^5.5.0"
+  }
+}

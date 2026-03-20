@@ -36,6 +36,12 @@ interface ITLDMinter {
     /// @notice Emitted when Security Council veto authority is revoked after expiration
     event SecurityCouncilVetoRevoked(address indexed revokedBy);
 
+    /// @notice Emitted when a TLD is added to the allowlist
+    event TLDAllowlisted(string tld);
+
+    /// @notice Emitted when a TLD is removed from the allowlist
+    event TLDRemovedFromAllowlist(string tld);
+
     // ─────────────────────────────────────────────────────────────────
     // Structs
     // ─────────────────────────────────────────────────────────────────
@@ -91,4 +97,16 @@ interface ITLDMinter {
 
     /// @notice Returns the interface version for future compatibility
     function version() external pure returns (string memory);
+
+    /// @notice Check if a TLD is on the allowlist
+    function allowedTLDs(bytes32 tldHash) external view returns (bool);
+
+    /// @notice Add a TLD to the allowlist (DAO only)
+    function addToAllowlist(string calldata tld) external;
+
+    /// @notice Remove a TLD from the allowlist (DAO only)
+    function removeFromAllowlist(string calldata tld) external;
+
+    /// @notice Batch add TLDs to the allowlist (DAO only)
+    function batchAddToAllowlist(string[] calldata tlds) external;
 }
