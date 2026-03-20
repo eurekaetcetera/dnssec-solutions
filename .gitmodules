@@ -1,3 +1,6 @@
 [submodule "ens-p256-test/lib/forge-std"]
 	path = ens-p256-test/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "TLD-oracle/lib/forge-std"]
+	path = TLD-oracle/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
