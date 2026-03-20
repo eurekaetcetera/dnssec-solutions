@@ -6,26 +6,32 @@ DNS-verified TLD minting for ENS. Allows DNS registries to claim their TLDs in E
 
 ## How It Works
 
-1. **DNS Registry publishes intent** — Sets `_ens.nic.{tld}` TXT record with `a=0x{address}`
-2. **Anyone submits proof** — Calls `submitClaim()` with DNSSEC proof chain
-3. **Timelock period** — Window for DAO/Security Council to veto (15 min on testnet, 7 days on mainnet)
-4. **Execution** — After timelock, anyone calls `execute()` to mint the TLD
+1. **Allowlist check** — Contract verifies the TLD is on the 1,166-entry post-2012 gTLD allowlist
+2. **DNS Registry publishes intent** — Sets `_ens.nic.{tld}` TXT record with `a=0x{address}`
+3. **Anyone submits proof** — Calls `submitClaim()` with DNSSEC proof chain
+4. **Timelock period** — Window for DAO/Security Council to veto (15 min on testnet, 7 days on mainnet)
+5. **Execution** — After timelock, anyone calls `execute()` to mint the TLD
 
 ```
-DNS proposes → Contract verifies → DAO can veto → TLD minted
+Allowlist gate → DNS proposes → Contract verifies → DAO can veto → TLD minted
 ```
+
+### Allowlist Security Model (v2)
+
+Only post-2012 ICANN New gTLD Program strings are on the allowlist — these have `nic.tld` contractually reserved for the registry operator. Pre-2012 gTLDs (.com, .net, .org) and ccTLDs (.uk, .de) are not on the allowlist and require a DAO governance proposal to be added.
 
 ## Contracts
 
 | Contract | Description |
 |----------|-------------|
-| `TLDMinter.sol` | Policy layer: timelock, veto, rate limiting |
+| `TLDMinter.sol` | Policy layer: allowlist, timelock, veto, rate limiting |
 | `P256SHA256Algorithm.sol` | EIP-7951 P-256 signature verification (~3k gas) |
 
 ### Deployed Contracts (Sepolia Testnet)
 
 ```
-TLDMinter:        0x2451427Bab27874619C0efEa3c28ccEbd111D7fe
+TLDMinter v2:     0x48729B7e0bA736123a57c4B6A492BDAbedAF980F
+TLDMinter v1:     0x2451427Bab27874619C0efEa3c28ccEbd111D7fe (deprecated)
 P256Algorithm:    0x704e859ac988d75ca00dDe96F2c0ed387d9fabB3
 DNSSEC Oracle:    0x31D1acba033d8A4Ab3f6334355289034d32cFD89
 MockRoot:         0x32cF38Af3c54c5D0C5305F48b6E2dE9f5191226d
@@ -105,26 +111,39 @@ forge build
 forge test
 ```
 
-### Deploy (Sepolia)
+### Deploy v2 (Sepolia)
 
 ```bash
-forge script script/DeploySepolia.s.sol --rpc-url $SEPOLIA_RPC_URL --broadcast
+# Fetches IANA TLD list, filters to 1,166 post-2012 gTLDs, deploys, and seeds allowlist
+npx ts-node scripts/deploy-v2.ts
 ```
 
 ## Architecture
 
 ```
-┌─────────────┐     ┌──────────────┐     ┌─────────┐
-│ DNS Registry│────▶│  TLDMinter   │────▶│ ENS Root│
-│ _ens.nic.co │     │  (timelock)  │     │         │
-└─────────────┘     └──────────────┘     └─────────┘
-                           │
-                    ┌──────┴──────┐
-                    ▼             ▼
-              ┌──────────┐  ┌──────────┐
-              │ DNSSECImpl│  │ DAO/SC   │
-              │ (verify)  │  │ (veto)   │
-              └──────────┘  └──────────┘
+submitClaim() ──► allowedTLDs[labelHash]?
+                  │
+                  ├── NO ──► revert TLDNotAllowed() ✗
+                  │
+                  ▼ YES
+          DNSSECOracle.verifyRRSet()
+                  │
+                  ▼
+          TLDMinter stores pending request
+                  │
+                  ▼
+        ┌─────────────────────┐
+        │   TIMELOCK WINDOW   │◄── veto() by DAO or Security Council
+        └─────────────────────┘
+                  │
+                  ▼ (if not vetoed)
+execute() ──► Root.setSubnodeOwner()
+                  │
+                  ▼
+          Registry.setSubnodeOwner(0x0, label, owner)
+                  │
+                  ▼
+          Ownership recorded ✓
 ```
 
 ## Policy Parameters (Sepolia Testnet)
