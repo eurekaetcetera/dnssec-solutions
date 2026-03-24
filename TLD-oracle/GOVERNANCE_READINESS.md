@@ -54,28 +54,28 @@ Salt `bytes32(0)` was chosen after scanning salts 0-99 with no "clean" addresses
 
 ### Gas Measurements
 
-Measured on mainnet fork via `dao-proposals/script/MeasureGas.s.sol`.
-
-**Proposal A (~24.5M gas, 5 calls):**
+**Proposal A (~24.2M gas, 5 calls):**
 
 | Call | Target | Data | Gas |
 |------|--------|------|-----|
-| 1 | CREATE2 Factory | deploy TLDMinter | 2,041,848 |
-| 2 | Root | `setController(tldMinter, true)` | 27,834 |
-| 3 | TLDMinter | `batchAddToAllowlist(TLDs 1-300)` | 7,473,599 |
-| 4 | TLDMinter | `batchAddToAllowlist(TLDs 301-600)` | 7,484,096 |
-| 5 | TLDMinter | `batchAddToAllowlist(TLDs 601-900)` | 7,494,584 |
-| | | **Total** | **24,521,961** |
+| 1 | CREATE2 Factory | deploy TLDMinter | 2,038,986 |
+| 2 | Root | `setController(tldMinter, true)` | 24,827 |
+| 3 | TLDMinter | `batchAddToAllowlist(TLDs 1-300)` | 7,375,439 |
+| 4 | TLDMinter | `batchAddToAllowlist(TLDs 301-600)` | 7,375,439 |
+| 5 | TLDMinter | `batchAddToAllowlist(TLDs 601-900)` | 7,375,439 |
+| | | **Total** | **24,190,130** |
 
-Contract is live and operational for 900 TLDs immediately after Proposal A executes. Headroom: 5.5M gas (18% buffer).
+Contract is live and operational for 900 TLDs immediately after Proposal A executes. Headroom: ~5.8M gas (19% buffer).
 
-**Proposal B (~6.7M gas, 1 call):**
+**Proposal B (~6.5M gas, 1 call):**
 
 | Call | Target | Data | Gas |
 |------|--------|------|-----|
-| 1 | TLDMinter | `batchAddToAllowlist(TLDs 901-1166)` | 6,653,535 |
+| 1 | TLDMinter | `batchAddToAllowlist(TLDs 901-1166)` | 6,539,532 |
 
 Submitted after Proposal A fully executes (post 2-day timelock).
+
+> Gas measured from mainnet fork test trace (`test-results.txt`). `MeasureGas.s.sol` was found to be unreliable (uses `gasleft()`); trace values are authoritative.
 
 ### Optional: Set TLDMinter's reverse record
 
@@ -129,7 +129,7 @@ Root.setSubnodeOwner enforces `require(!locked[label])`. `.eth` is permanently l
 - [x] SecurityCouncil (`0xB8fA0...`) and SC Multisig (`0xaA5cD0...`) confirmed via Etherscan — get formal sign-off from governance stewards
 - [x] Run full test suite against mainnet fork (`forge test --fork-url`) — all assertions pass (see `dao-proposals/calldataCheck.t.sol`)
 - [x] Compute deterministic TLDMinter address — `0xf096afBc6ebD704Dbd215999045A3FE29C064b6b`
-- [x] Measure deployment gas on mainnet fork — Proposal A: 24.5M, Proposal B: 6.7M
+- [x] Measure deployment gas on mainnet fork — Proposal A: 24.2M, Proposal B: 6.5M
 - [x] Encode deployment calldata and update `proposalCalldata.json` — two proposals, 6 calls total
 - [x] Pin compiler settings across both repos (`solc 0.8.27`, `via_ir`, `cancun`, `cbor_metadata = false`, `bytecode_hash = "none"`) — bytecodes match
 - [ ] Draft governance proposal for ENS forum (RFC already posted)
@@ -151,6 +151,6 @@ forge test -vvv
 
 ## Open Questions
 
-1. ~~**Deployment gas budget**~~ — **Resolved.** Constructor seeding hits the EVM's 20k SSTORE gas floor: 1,166 TLDs = 23.3M+ gas, exceeding the 30M block limit. Two-proposal structure confirmed: Proposal A (24.5M gas) deploys + seeds 900 TLDs, Proposal B (6.7M gas) seeds remaining 266 TLDs.
+1. ~~**Deployment gas budget**~~ — **Resolved.** Constructor seeding hits the EVM's 20k SSTORE gas floor: 1,166 TLDs = 23.3M+ gas, exceeding the 30M block limit. Two-proposal structure confirmed: Proposal A (24.2M gas) deploys + seeds 900 TLDs, Proposal B (6.5M gas) seeds remaining 266 TLDs.
 2. **Allowlist maintenance** — After the initial 1,166 gTLDs are seeded, future additions require separate DAO proposals calling `addToAllowlist()`. Is batch governance tooling needed?
 3. **Merkle root alternative** — Would eliminate seeding gas entirely (single 2-call proposal) but changes claim UX and requires additional implementation + audit. Surfaced as an option for delegates during Temp Check.
