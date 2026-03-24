@@ -6,8 +6,8 @@ How to take TLDMinter from testnet to mainnet via ENS DAO governance.
 
 | Contract | Address | Role |
 |----------|---------|------|
-| ENSRegistry | `0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e` | Read-only: `canClaim()` checks TLD existence |
-| Root | `0xaB528d626EC275E3faD363fF1393A41F581c5897` | Write: `execute()` calls `root.setSubnodeOwner()` |
+| ENSRegistry | `0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e` | Read-only: `ens.owner(node)` checks if TLD is already registered |
+| Root | `0xaB528d626EC275E3faD363fF1393A41F581c5897` | Write: TLDMinter calls `root.setSubnodeOwner()` to mint TLDs |
 | DNSSECImpl | `0x0fc3152971714E5ed7723FAFa650F86A4BaF30C5` | Read: `submitClaim()` calls `oracle.verifyRRSet()` |
 | ENS DAO Timelock | `0xFe89cc7aBB2C4183683ab71653C4cdc9B02D44b7` | Owner of Root, executor of proposals |
 | ENS Governor | `0x323a76393544d5ecca80cd6ef2a560c6a395b7e3` | Governance voting contract |
@@ -80,7 +80,7 @@ Submitted after Proposal A fully executes (post 2-day timelock).
 ### Optional: Set TLDMinter's reverse record
 
 ```
-target: 0x231b0Ee14048e9dCcD1d247744d114a4EB5E8E63 (ReverseRegistrar)
+target: 0xa58E81fe9b61B5c3fE2AFD33CF304c454AbFc7Cb (ReverseRegistrar)
 value:  0
 data:   setNameForAddr(address(tldMinter), address(tldMinter), address(resolver), "tldminter.ens.eth")
 ```
@@ -91,11 +91,11 @@ This sets a primary ENS name for the TLDMinter contract. Not required for functi
 
 | Phase | Duration |
 |-------|----------|
-| Proposal A voting | ~7 days (45,818 blocks) |
+| Proposal A voting | ~6.4 days (45,818 blocks at ~12s/block) |
 | Proposal A timelock | 2 days minimum |
 | Proposal B voting | ~7 days |
 | Proposal B timelock | 2 days minimum |
-| **Total** | **~18 days** |
+| **Total** | **~17 days** |
 
 Requirements: 100,000 ENS tokens to propose, 1% quorum to pass.
 
@@ -127,7 +127,7 @@ Root.setSubnodeOwner enforces `require(!locked[label])`. `.eth` is permanently l
 
 - [x] Choose CREATE2 salt — salt `bytes32(0)`
 - [x] SecurityCouncil (`0xB8fA0...`) and SC Multisig (`0xaA5cD0...`) confirmed via Etherscan — get formal sign-off from governance stewards
-- [x] Run full test suite against mainnet fork (`forge test --fork-url`) — all assertions pass (see `dao-proposals/calldataCheck.t.sol`)
+- [x] Run full test suite against mainnet fork (`forge test --fork-url`) — all assertions pass (see `dao-proposals/src/ens/proposals/tld-oracle-v2/calldataCheck.t.sol`)
 - [x] Compute deterministic TLDMinter address — `0xf096afBc6ebD704Dbd215999045A3FE29C064b6b`
 - [x] Measure deployment gas on mainnet fork — Proposal A: 24.2M, Proposal B: 6.5M
 - [x] Encode deployment calldata and update `proposalCalldata.json` — two proposals, 6 calls total
