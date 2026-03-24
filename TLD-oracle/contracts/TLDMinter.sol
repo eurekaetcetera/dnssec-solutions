@@ -119,8 +119,7 @@ contract TLDMinter is ITLDMinter {
         uint256 _timelockDuration,
         uint256 _rateLimitMax,
         uint256 _rateLimitPeriod,
-        uint256 _proofMaxAge,
-        string[] memory _initialAllowlist
+        uint256 _proofMaxAge
     ) {
         oracle = IDNSSEC(_oracle);
         root = IRoot(_root);
@@ -133,12 +132,6 @@ contract TLDMinter is ITLDMinter {
         rateLimitPeriod = _rateLimitPeriod;
         proofMaxAge = _proofMaxAge;
         periodStart = block.timestamp;
-
-        for (uint256 i = 0; i < _initialAllowlist.length; i++) {
-            bytes32 tldHash = keccak256(abi.encodePacked(_initialAllowlist[i]));
-            allowedTLDs[tldHash] = true;
-            emit TLDAllowlisted(_initialAllowlist[i]);
-        }
     }
 
     // ─────────────────────────────────────────────────────────────────

@@ -56,7 +56,6 @@ contract TLDMinterAllowlistTest is Test {
         mockOracle = new MockDNSSECOracle();
         mockSC = new MockSecurityCouncil(block.timestamp + 365 days);
 
-        string[] memory emptyList = new string[](0);
         minter = new TLDMinter(
             address(mockOracle),
             address(mockRoot),
@@ -67,8 +66,7 @@ contract TLDMinterAllowlistTest is Test {
             15 minutes,  // timelockDuration
             10,          // rateLimitMax
             7 days,      // rateLimitPeriod
-            14 days,     // proofMaxAge
-            emptyList
+            14 days      // proofMaxAge
         );
 
         // Give minter controller access on root
@@ -172,36 +170,6 @@ contract TLDMinterAllowlistTest is Test {
 
         vm.expectRevert(abi.encodeWithSelector(TLDMinter.TLDNotAllowed.selector, labelHash));
         minter.submitClaim(name, proof);
-    }
-
-    // ─────────────────────────────────────────────────────────────────
-    // Test 7: Constructor seeds allowlist
-    // ─────────────────────────────────────────────────────────────────
-
-    function test_constructorSeedsAllowlist() public {
-        string[] memory initialList = new string[](3);
-        initialList[0] = "link";
-        initialList[1] = "click";
-        initialList[2] = "help";
-
-        TLDMinter seeded = new TLDMinter(
-            address(mockOracle),
-            address(mockRoot),
-            address(mockEns),
-            dao,
-            scMultisig,
-            address(mockSC),
-            15 minutes,
-            10,
-            7 days,
-            14 days,
-            initialList
-        );
-
-        assertTrue(seeded.allowedTLDs(keccak256(abi.encodePacked("link"))));
-        assertTrue(seeded.allowedTLDs(keccak256(abi.encodePacked("click"))));
-        assertTrue(seeded.allowedTLDs(keccak256(abi.encodePacked("help"))));
-        assertFalse(seeded.allowedTLDs(keccak256(abi.encodePacked("com"))));
     }
 
     // ─────────────────────────────────────────────────────────────────

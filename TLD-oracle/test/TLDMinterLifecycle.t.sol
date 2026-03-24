@@ -58,7 +58,6 @@ contract TLDMinterLifecycleTest is Test {
         mockOracle = new MockDNSSECOracleLC();
         mockSC = new MockSecurityCouncilLC(block.timestamp + 365 days);
 
-        string[] memory emptyList = new string[](0);
         minter = new TLDMinter(
             address(mockOracle),
             address(mockRoot),
@@ -69,8 +68,7 @@ contract TLDMinterLifecycleTest is Test {
             TIMELOCK,
             10,          // rateLimitMax
             7 days,      // rateLimitPeriod
-            14 days,     // proofMaxAge
-            emptyList
+            14 days      // proofMaxAge
         );
 
         mockRoot.setController(address(minter), true);
