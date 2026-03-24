@@ -93,9 +93,9 @@ This sets a primary ENS name for the TLDMinter contract. Not required for functi
 |-------|----------|
 | Proposal A voting | ~6.4 days (45,818 blocks at ~12s/block) |
 | Proposal A timelock | 2 days minimum |
-| Proposal B voting | ~7 days |
+| Proposal B voting | ~6.4 days (45,818 blocks at ~12s/block) |
 | Proposal B timelock | 2 days minimum |
-| **Total** | **~17 days** |
+| **Total** | **~16.8 days** |
 
 Requirements: 100,000 ENS tokens to propose, 1% quorum to pass.
 
