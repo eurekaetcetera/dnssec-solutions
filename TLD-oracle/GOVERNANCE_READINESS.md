@@ -27,12 +27,17 @@ _timelockDuration:          7 days
 _rateLimitMax:              10
 _rateLimitPeriod:           7 days
 _proofMaxAge:               14 days
-_initialAllowlist:          string[1166] (all post-2012 gTLDs — baked into initCode)
 ```
 
 ## Governance Proposal
 
-A single proposal deploys TLDMinter (with the full allowlist baked into the constructor) and authorizes it on Root. The initial 1,166 gTLDs are committed to the CREATE2 initCode hash and seeded atomically at deployment — no second proposal is needed.
+### Why two proposals are required
+
+Seeding the 1,166-entry gTLD allowlist requires 1,166 SSTORE operations at 20,000 gas each = 23.3M gas minimum. Combined with deployment overhead, this exceeds the 30M block gas limit in a single transaction. This is a hard EVM constraint — not a contract design choice. We explored constructor-based seeding, permissionless seeder patterns, and chunked approaches. All hit the same wall: the gas is in the storage writes, not the calling mechanism.
+
+### Merkle root alternative (on the table for DAO consideration)
+
+A Merkle root approach would store a single bytes32 commitment at deploy time and verify proofs at claim time — eliminating seeding gas entirely and reducing the proposal to 2 calls. This changes the claim UX (operators provide a Merkle proof when submitting a claim) and requires additional implementation and audit time. We are surfacing this as an explicit architectural option for delegates to weigh in on during the Temp Check, but defaulting to the two-proposal plan which is proven, auditable, and ready to ship now.
 
 ### CREATE2 Deployment Details
 
@@ -40,33 +45,37 @@ A single proposal deploys TLDMinter (with the full allowlist baked into the cons
 |-----------|-------|
 | Factory | `0x4e59b44847b379578588920cA78FbF26c0B4956C` |
 | Salt | `0x0000000000000000000000000000000000000000000000000000000000000000` |
-| TLDMinter address | `0x30fFc92e09C68e308a9eb439d08358fAa675B9a4` |
-| initCodeHash | `0x278e0445bb15bca6bf4359cee31dbd7c97bce0ebb09d6df68b7acfb0d8fea2bb` |
+| TLDMinter address | `0xf096afBc6ebD704Dbd215999045A3FE29C064b6b` |
+| initCodeHash | `0x5f7592a28878e322f096d935111004a96b1c9d61ee234bb70e3bd74ce8544e88` |
 
-The address is deterministic: `keccak256(0xff ++ factory ++ salt ++ initCodeHash)[12:]`. Because the full allowlist is ABI-encoded into the constructor arguments, the initCode hash commits to the exact set of 1,166 TLDs. Delegates verify this hash before voting — what they approve is exactly what deploys.
+The address is deterministic: `keccak256(0xff ++ factory ++ salt ++ initCodeHash)[12:]`. Delegates verify the initCodeHash before voting — what they approve is exactly what deploys.
 
 Salt `bytes32(0)` was chosen after scanning salts 0-99 with no "clean" addresses found (4+ leading zero bytes). See `dao-proposals/script/ComputeAddress.s.sol`.
 
-### Gas Considerations
+### Gas Measurements
 
-Constructor-based seeding moves the allowlist cost into the CREATE2 deployment transaction. The per-TLD storage cost (~25,670 gas) is now paid during deployment rather than in separate `batchAddToAllowlist` calls.
+Measured on mainnet fork via `dao-proposals/script/MeasureGas.s.sol`.
 
-| Call | Gas Used | Notes |
-|------|----------|-------|
-| CREATE2 deploy (with 1,166 TLDs) | 4,083,048 | Includes constructor loop writing all 1,166 TLDs to storage |
-| setController | 27,969 | Single SSTORE |
-| **Total** | **4,111,017** | **13.7% of 30M block limit — 25.9M headroom** |
-
-Measured on mainnet fork via `dao-proposals/script/MeasureGas.s.sol`. The full 1,166-TLD constructor seeding fits comfortably in a single block with no splitting required.
-
-### Single Proposal: Deploy + Authorize (2 calls)
+**Proposal A (~24.5M gas, 5 calls):**
 
 | Call | Target | Data | Gas |
 |------|--------|------|-----|
-| 1 | CREATE2 Factory | `abi.encodePacked(salt, initCode)` | 4,083,048 |
-| 2 | Root | `setController(tldMinter, true)` | 27,969 |
+| 1 | CREATE2 Factory | deploy TLDMinter | 2,041,848 |
+| 2 | Root | `setController(tldMinter, true)` | 27,834 |
+| 3 | TLDMinter | `batchAddToAllowlist(TLDs 1-300)` | 7,473,599 |
+| 4 | TLDMinter | `batchAddToAllowlist(TLDs 301-600)` | 7,484,096 |
+| 5 | TLDMinter | `batchAddToAllowlist(TLDs 601-900)` | 7,494,584 |
+| | | **Total** | **24,521,961** |
 
-**Why this is better than two proposals:** The constructor now accepts `string[] memory _initialAllowlist`, so the 1,166 gTLDs are seeded during deployment. The initCode hash commits to the full allowlist — delegates verify one hash, vote once, and the system is fully operational after a single proposal executes. This mirrors the EP5.1 pattern where TLD enabling was handled outside the governance call itself, and eliminates the two-proposal sequencing risk entirely.
+Contract is live and operational for 900 TLDs immediately after Proposal A executes. Headroom: 5.5M gas (18% buffer).
+
+**Proposal B (~6.7M gas, 1 call):**
+
+| Call | Target | Data | Gas |
+|------|--------|------|-----|
+| 1 | TLDMinter | `batchAddToAllowlist(TLDs 901-1166)` | 6,653,535 |
+
+Submitted after Proposal A fully executes (post 2-day timelock).
 
 ### Optional: Set TLDMinter's reverse record
 
@@ -76,15 +85,17 @@ value:  0
 data:   setNameForAddr(address(tldMinter), address(tldMinter), address(resolver), "tldminter.ens.eth")
 ```
 
-This sets a primary ENS name for the TLDMinter contract. Not required for functionality. Can be bundled into the proposal (if gas headroom allows) or submitted separately.
+This sets a primary ENS name for the TLDMinter contract. Not required for functionality. Can be bundled into Proposal B or submitted separately.
 
 ### Proposal Timeline
 
 | Phase | Duration |
 |-------|----------|
-| Voting period | ~7 days (45,818 blocks) |
-| Timelock delay | 2 days minimum |
-| **Total** | **~9 days** |
+| Proposal A voting | ~7 days (45,818 blocks) |
+| Proposal A timelock | 2 days minimum |
+| Proposal B voting | ~7 days |
+| Proposal B timelock | 2 days minimum |
+| **Total** | **~18 days** |
 
 Requirements: 100,000 ENS tokens to propose, 1% quorum to pass.
 
@@ -94,7 +105,7 @@ The system has four independent safety layers. No single failure can result in a
 
 ### Layer 1: Allowlist (TLDMinter)
 
-Only DAO-approved TLD strings pass `submitClaim()`. The initial 1,166 post-2012 gTLDs are seeded via the constructor at deployment. The allowlist is checked first, before any expensive DNSSEC verification. Non-allowlisted TLDs revert with `TLDNotAllowed`.
+Only DAO-approved TLD strings pass `submitClaim()`. The initial 1,166 post-2012 gTLDs are seeded via `batchAddToAllowlist` across two governance proposals. The allowlist is checked first, before any expensive DNSSEC verification. Non-allowlisted TLDs revert with `TLDNotAllowed`.
 
 ### Layer 2: DNSSEC Proof Verification (DNSSECImpl)
 
@@ -117,20 +128,21 @@ Root.setSubnodeOwner enforces `require(!locked[label])`. `.eth` is permanently l
 - [x] Choose CREATE2 salt — salt `bytes32(0)`
 - [x] SecurityCouncil (`0xB8fA0...`) and SC Multisig (`0xaA5cD0...`) confirmed via Etherscan — get formal sign-off from governance stewards
 - [x] Run full test suite against mainnet fork (`forge test --fork-url`) — all assertions pass (see `dao-proposals/calldataCheck.t.sol`)
-- [x] Implement constructor-based allowlist seeding — `_initialAllowlist` parameter added, eliminates second governance proposal
-- [x] Recompute deterministic TLDMinter address with new initCode — `0x30fFc92e09C68e308a9eb439d08358fAa675B9a4`
-- [x] Measure deployment gas on mainnet fork — 4,111,017 total (13.7% of block limit), single proposal confirmed
-- [x] Re-encode deployment calldata and update `proposalCalldata.json` — single proposal, 2 calls
+- [x] Compute deterministic TLDMinter address — `0xf096afBc6ebD704Dbd215999045A3FE29C064b6b`
+- [x] Measure deployment gas on mainnet fork — Proposal A: 24.5M, Proposal B: 6.7M
+- [x] Encode deployment calldata and update `proposalCalldata.json` — two proposals, 6 calls total
+- [x] Pin compiler settings across both repos (`solc 0.8.27`, `via_ir`, `cancun`, `cbor_metadata = false`, `bytecode_hash = "none"`) — bytecodes match
 - [ ] Draft governance proposal for ENS forum (RFC already posted)
-- [ ] Submit proposal through ENS Governor
+- [ ] Submit Proposal A through ENS Governor
+- [ ] Submit Proposal B after Proposal A executes
 - [ ] Verify contract source on Etherscan post-deployment
-- [ ] (Optional) Decide on ENS primary name for TLDMinter and bundle into proposal
+- [ ] (Optional) Decide on ENS primary name for TLDMinter and bundle into Proposal B
 
 ## Test Coverage
 
-23 tests across two files verify the contract against the RFC:
+22 tests across two files verify the contract against the RFC:
 
-- `test/TLDMinterAllowlist.t.sol` — 7 tests: allowlist gating, DAO-only access control, batch operations, constructor seeding
+- `test/TLDMinterAllowlist.t.sol` — 6 tests: allowlist gating, DAO-only access control, batch operations
 - `test/TLDMinterLifecycle.t.sol` — 16 tests: full claim lifecycle, veto paths, timelock enforcement, rate limiting, pause mechanics, SC expiration, proof freshness
 
 ```bash
@@ -139,5 +151,6 @@ forge test -vvv
 
 ## Open Questions
 
-1. ~~**Deployment gas budget**~~ — **Resolved.** Mainnet fork measurement shows 4,111,017 gas total (4,083,048 deploy + 27,969 setController). This is 13.7% of the 30M block gas limit with 25.9M headroom. The earlier ~29.9M estimate was based on cold-storage cost per TLD; the actual constructor loop is far cheaper because ABI-encoded string arrays are processed more efficiently.
+1. ~~**Deployment gas budget**~~ — **Resolved.** Constructor seeding hits the EVM's 20k SSTORE gas floor: 1,166 TLDs = 23.3M+ gas, exceeding the 30M block limit. Two-proposal structure confirmed: Proposal A (24.5M gas) deploys + seeds 900 TLDs, Proposal B (6.7M gas) seeds remaining 266 TLDs.
 2. **Allowlist maintenance** — After the initial 1,166 gTLDs are seeded, future additions require separate DAO proposals calling `addToAllowlist()`. Is batch governance tooling needed?
+3. **Merkle root alternative** — Would eliminate seeding gas entirely (single 2-call proposal) but changes claim UX and requires additional implementation + audit. Surfaced as an option for delegates during Temp Check.
