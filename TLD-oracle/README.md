@@ -51,63 +51,14 @@ npm install
 forge install
 ```
 
-### Submit a TLD Claim
+### CLI Tooling
 
-```bash
-node scripts/submitClaim.js <tld>
-# Example: node scripts/submitClaim.js gift
-```
+> CLI scripts for submitting claims, executing after timelock, and querying valid TLDs are coming. For now, interact with the contracts directly via `cast` or a custom script.
 
-### Execute After Timelock
-
-```bash
-node scripts/executeClaim.js <tld>
-```
-
-### Veto a Claim (DAO/SC only)
-
-```bash
-node scripts/vetoClaim.js <tld> "reason"
-```
-
-### Utility Scripts
-
-```bash
-# Check which TLDs have valid _ens.nic.{tld} records
-node scripts/findValidTLDs.js
-
-# Check proof freshness (must be ≤14 days old)
-node scripts/checkProofAge.js
-
-# Estimate gas for a claim
-node scripts/estimateGas.js <tld>
-```
-
-## Valid TLDs
-
-TLDs with correctly configured `_ens.nic.{tld}` TXT records (Algorithm 13):
-
-| TLD | Owner |
-|-----|-------|
-| .link | `0x709d552b...` |
-| .click | `0x709d552b...` |
-| .help | `0x709d552b...` |
-| .gift | `0x709d552b...` |
-| .property | `0x709d552b...` |
-| .sexy | `0x709d552b...` |
-| .hiphop | `0x42eC164C...` |
-
-## Development
-
-### Build
+### Development
 
 ```bash
 forge build
-```
-
-### Test
-
-```bash
 forge test
 ```
 
